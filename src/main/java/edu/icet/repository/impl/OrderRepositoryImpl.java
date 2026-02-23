@@ -17,10 +17,12 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean addOrder(Order order) {
-        String sql = "INSERT INTO orders VALUES (?, ?)";
+        String sql = "INSERT INTO orders (OrderID, OrderDate, CustID) VALUES (?, ?, ?)";
         return jdbcTemplate.update(sql,
-                order.getId(),
-                Date.valueOf(order.getDate())) > 0;
+                order.getOrderId(),
+                Date.valueOf(order.getDate()),
+                order.getCustId()
+        ) > 0;
     }
 
     @Override
@@ -28,15 +30,10 @@ public class OrderRepositoryImpl implements OrderRepository {
         String sql = "SELECT * FROM orders";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             Order order = new Order();
-            order.setId(rs.getInt(1));
-            order.setDate(rs.getDate(2).toLocalDate());
+            order.setOrderId(rs.getString("OrderID"));
+            order.setDate(rs.getDate("OrderDate").toLocalDate());
+            order.setCustId(rs.getString("CustID"));
             return order;
         });
     }
-
-    @Override
-    public boolean updateOrder(Order order) { return false; }
-
-    @Override
-    public boolean deleteOrder(Integer id) { return false; }
 }
