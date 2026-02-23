@@ -6,6 +6,6 @@ import java.util.List;
 public interface OrderRepository {
     boolean addOrder(Order order);
     List<Order> getAllOrders();
-    boolean updateOrder(Order order);
-    boolean deleteOrder(Integer id);
+//    boolean updateOrder(Order order);
+//    boolean deleteOrder(Integer id);
 }
