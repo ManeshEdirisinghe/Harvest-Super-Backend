@@ -32,7 +32,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             Order order = new Order();
             order.setOrderId(rs.getString("OrderID"));
             order.setDate(rs.getDate("OrderDate").toLocalDate());
-            order.setCustId(rs.getString("CustID"));
+            order.setCustId(rs.getString("custID"));
             return order;
         });
     }
