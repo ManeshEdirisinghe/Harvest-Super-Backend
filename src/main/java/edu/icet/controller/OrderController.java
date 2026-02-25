@@ -1,6 +1,8 @@
 package edu.icet.controller;
 
+import edu.icet.model.Customer;
 import edu.icet.model.Order;
+import edu.icet.service.CustomerService;
 import edu.icet.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
+    private final CustomerService customerService;
 
     @PostMapping("/add-order")
     public boolean addOrder(@RequestBody Order order){
@@ -24,9 +27,9 @@ public class OrderController {
     public List<Order> getAll(){
         return orderService.getAll();
     }
-//
-//    @DeleteMapping("/delete-order/{id}")
-//    public boolean deleteOrder(@PathVariable String id){
-//        return orderService.deleteOrder(id);
-//    }
+
+    @GetMapping("/get-all-customers")
+    public List<Customer> getAllCustomers(){
+        return customerService.getAll();
+    }
 }
