@@ -13,4 +13,11 @@ public class Order {
     private LocalDate date;
     private String custID;
 
+    public Object getCustId() {
+        return null;
+    }
+
+    public void setCustId(String custID) {
+        // TODO document why this method is empty
+    }
 }
