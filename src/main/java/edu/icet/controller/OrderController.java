@@ -18,8 +18,8 @@ public class OrderController {
     private final OrderService orderService;
     private final CustomerService customerService;
 
-    @PostMapping("/add-order")
-    public boolean addOrder(@RequestBody Order order){
+    @PostMapping("/place-order")
+    public boolean placeOrder(@RequestBody Order order) {
         return orderService.addOrder(order);
     }
 
