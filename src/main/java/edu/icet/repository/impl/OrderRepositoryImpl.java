@@ -17,12 +17,25 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean addOrder(Order order) {
-        String sql = "INSERT INTO orders (OrderID, OrderDate, CustID) VALUES (?, ?, ?)";
-        return jdbcTemplate.update(sql,
+        // 1. Order table ekata insert kireema
+        String sqlOrder = "INSERT INTO orders VALUES (?, ?, ?)";
+        boolean isOrderSaved = jdbcTemplate.update(sqlOrder,
                 order.getOrderId(),
                 Date.valueOf(order.getDate()),
-                order.getCustId()
-        ) > 0;
+                order.getCustId()) > 0;
+
+        if (isOrderSaved) {
+            String sqlDetail = "INSERT INTO orderdetail VALUES (?, ?, ?, ?)";
+            for (OrderDetail detail : order.getOrderDetails()) {
+                jdbcTemplate.update(sqlDetail,
+                        order.getOrderId(),
+                        detail.getItemCode(),
+                        detail.getQty(),
+                        detail.getDiscount());
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -36,4 +49,5 @@ public class OrderRepositoryImpl implements OrderRepository {
             return order;
         });
     }
+
 }
