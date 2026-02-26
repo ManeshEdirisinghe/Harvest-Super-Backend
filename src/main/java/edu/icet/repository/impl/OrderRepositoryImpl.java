@@ -5,6 +5,7 @@ import edu.icet.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import edu.icet.model.OrderDetail;
 
 import java.sql.Date;
 import java.util.List;
@@ -17,7 +18,6 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean addOrder(Order order) {
-        // 1. Order table ekata insert kireema
         String sqlOrder = "INSERT INTO orders VALUES (?, ?, ?)";
         boolean isOrderSaved = jdbcTemplate.update(sqlOrder,
                 order.getOrderId(),
